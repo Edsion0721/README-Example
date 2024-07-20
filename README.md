@@ -1,42 +1,76 @@
-# Hello World
+Project Title
+MyToken Smart Contract
 
-This Solidity program is a simple "Hello World" program that demonstrates the basic syntax and functionality of the Solidity programming language. The purpose of this program is to serve as a starting point for those who are new to Solidity and want to get a feel for how it works.
+Overview
+A simple smart contract for an ERC20-like token named Cipher (Cip). This contract includes functionalities for minting and burning tokens while tracking total supply and individual balances.
 
-## Description
+Description
+The MyToken smart contract is designed to illustrate the basics of creating and managing a custom token on the Ethereum blockchain. It includes:
 
-This program is a simple contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract has a single function that returns the string "Hello World!". This program serves as a simple and straightforward introduction to Solidity programming, and can be used as a stepping stone for more complex projects in the future.
+Public variables for the token's name, abbreviation, and total supply.
+A mapping of addresses to balances.
+A mint function to create new tokens and assign them to a specified address.
+A burn function to destroy tokens from a specified address, ensuring the address has sufficient balance.
+This project serves as a foundational example for understanding how to implement and interact with custom tokens using Solidity.
 
-## Getting Started
+Getting Started
+Installing
+To set up the project, you'll need:
 
-### Executing program
+Solidity compiler (e.g., through Remix, Truffle, or Hardhat)
+Download the project:
 
-To run this program, you can use Remix, an online Solidity IDE. To get started, go to the Remix website at https://remix.ethereum.org/.
+git clone https://github.com/IshaL-30/Metacrafter_Course.git
+cd Assignment2/create_a_token.sol
+Executing program
+Deploying the Smart Contract
+To deploy and interact with the smart contract:
 
-Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., HelloWorld.sol). Copy and paste the following code into the file:
+Ensure you have a Solidity development environment set up (e.g., Remix, Truffle, Hardhat).
+Copy the smart contract code into a new Solidity file (e.g., MyToken.sol).
+Compile the contract using your development environment.
+Deploy the contract to a local Ethereum network or a testnet.
+Interact with the contract using the provided functions (mint and burn).
+Example Commands
 
-```javascript
-pragma solidity ^0.8.4;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.18;
 
-contract HelloWorld {
-    function sayHello() public pure returns (string memory) {
-        return "Hello World!";
+contract MyToken {
+
+    // public variables here
+    string public token_name = "Cipher";
+    string public token_abbrv = "Cip";
+    uint public totalsupply = 0;
+
+    // mapping variable here
+    mapping(address => uint) public balances;
+    
+    // mint function
+    function mint(address add, uint val) public {
+        totalsupply += val;
+        balances[add] += val;
+    }
+
+    // burn function
+    function burn(address add, uint val) public {
+        require(balances[add] >= val, "Balance of the sender is less than the amount to burn.");
+        totalsupply -= val;
+        balances[add] -= val;
     }
 }
+Help
+For any issues or questions, please refer to the following resources:
 
-```
+Solidity Documentation Common issues may include:
 
-To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.4" (or another compatible version), and then click on the "Compile HelloWorld.sol" button.
+Incorrect installation paths Version mismatches between Solidity compiler and your development environment Feel free to reach out for further assistance.
 
-Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "HelloWorld" contract from the dropdown menu, and then click on the "Deploy" button.
+Authors
+Contributors names and contact info
 
-Once the contract is deployed, you can interact with it by calling the sayHello function. Click on the "HelloWorld" contract in the left-hand sidebar, and then click on the "sayHello" function. Finally, click on the "transact" button to execute the function and retrieve the "Hello World!" message.
+Isha Limbasiya
+https://www.linkedin.com/in/isha-limbasiya/
 
-## Authors
-
-Metacrafter Chris  
-[@metacraftersio](https://twitter.com/metacraftersio)
-
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details
+License
+This project is licensed under the MIT License - see the LICENSE.md file for details.
